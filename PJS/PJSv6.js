@@ -66,9 +66,8 @@ let handlers = {
     changeTodoPositionTextInput.value = "";
     view.displayTodos();
   },
-  deleteTodo: function(){
-    let deleteTodoPositionInput = document.getElementById('deleteTodoPositionInput');
-    todoList.deleteTodo(deleteTodoPositionInput.valueAsNumber);
+  deleteTodo: function(position){
+    todoList.deleteTodo(position);
     view.displayTodos();
   },
   toggleCompleted: function(){
@@ -100,9 +99,33 @@ let view = {
       else{
         todoTextWithCompletion = "( ) " + todo.todoText;
       }
+      todoLi.id = i;
       // there is a textcontent property on these li elements, that you can change
       todoLi.textContent = todoTextWithCompletion;
+      todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
     }
+  },
+  createDeleteButton: function() {
+    let deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "deleteButton";
+    return deleteButton;
+  },
+  setUpEventListeners: function(){
+    let todoUl = document.querySelector("ul");
+
+    todoUl.addEventListener("click", function(event) {
+      // Get the element that was clicked on,
+      let elementClicked = event.target;
+
+      // Check if elementClicked is a delete button
+      if(elementClicked.className === "deleteButton"){
+        handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
+      }
+
+    });
   }
 }
+
+view.setUpEventListeners();
