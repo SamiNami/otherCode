@@ -25,24 +25,24 @@ let todoList = {
     let completedTodos =0;
 
     // get the number of completed todos.
-    for(var i=0; i < totalTodos; i++){
-      if (this.todos[i].completed === true){
+    this.todos.forEach(function(todo){
+      if(todo.completed === true){
         completedTodos++;
       }
-    }
+    });
 
-    // if everything is true, toggle everything to false
-    if(completedTodos === totalTodos){
-      for(let i = 0; i < totalTodos; i++){
-        this.todos[i].completed = false;
+    // loop through the todos array and depending set them all to true or false.
+    this.todos.forEach(function(todo){
+      if(completedTodos === totalTodos){
+        todo.completed = false;
       }
-    }
-    // else make everything true
-    else{
-      for(let i = 0;i < totalTodos; i++){
-        this.todos[i].completed = true;
+      else{
+        todo.completed = true;
       }
-    }
+    });
+
+
+
   }
 
 };
