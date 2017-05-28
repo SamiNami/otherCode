@@ -38,3 +38,12 @@ console.log("");
 forEach(students, function(student) {
   console.log(student);
 })
+
+
+
+function mulitplyTwoNumbers(a , b){
+  return a * b;
+}
+
+let result = mulitplyTwoNumbers(2,10);
+console.log(result);
