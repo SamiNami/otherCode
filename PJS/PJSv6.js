@@ -40,9 +40,6 @@ let todoList = {
         todo.completed = true;
       }
     });
-
-
-
   }
 
 };
@@ -88,23 +85,24 @@ let view = {
   displayTodos: function(){
     let todosUl = document.querySelector("ul");
     todosUl.innerHTML = "";
-    for(let i = 0; i < todoList.todos.length;i++){
+
+    todoList.todos.forEach(function(todo,position){
       let todoLi = document.createElement("li");
-      let todo = todoList.todos[i];
       let todoTextWithCompletion = "";
 
       if (todo.completed === true) {
-        todoTextWithCompletion = "(x) " + todo.todoText;
+       todoTextWithCompletion = "(x) " + todo.todoText;
       }
       else{
-        todoTextWithCompletion = "( ) " + todo.todoText;
+       todoTextWithCompletion = "( ) " + todo.todoText;
       }
-      todoLi.id = i;
+      todoLi.id = position;
       // there is a textcontent property on these li elements, that you can change
       todoLi.textContent = todoTextWithCompletion;
       todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
-    }
+    }, this);
+
   },
   createDeleteButton: function() {
     let deleteButton = document.createElement("button");
