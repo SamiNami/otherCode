@@ -67,10 +67,8 @@ let handlers = {
     todoList.deleteTodo(position);
     view.displayTodos();
   },
-  toggleCompleted: function(){
-    let toggleCompletedPositionInput = document.getElementById('toggleCompletedPositionInput');
-    todoList.toggleCompleted(toggleCompletedPositionInput.valueAsNumber);
-    toggleCompletedPositionInput.value = "";
+  toggleCompleted: function(position){
+    todoList.toggleCompleted(position);
     view.displayTodos();
   },
   toggleAll:function(){
@@ -90,19 +88,31 @@ let view = {
       let todoLi = document.createElement("li");
       let todoTextWithCompletion = "";
 
+      let checkBox = this.createCheckBox();
+
       if (todo.completed === true) {
-       todoTextWithCompletion = "(x) " + todo.todoText;
+       todoTextWithCompletion = todo.todoText;
+       checkBox.checked = true;
       }
       else{
-       todoTextWithCompletion = "( ) " + todo.todoText;
+       todoTextWithCompletion = todo.todoText;
+       checkBox.checked = false;
       }
       todoLi.id = position;
       // there is a textcontent property on these li elements, that you can change
       todoLi.textContent = todoTextWithCompletion;
+      todoLi.insertAdjacentElement("afterbegin", checkBox);
       todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
+
     }, this);
 
+  },
+  createCheckBox: function(){
+    let checkBox = document.createElement("INPUT");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.className = "checkBox";
+    return checkBox;
   },
   createDeleteButton: function() {
     let deleteButton = document.createElement("button");
@@ -121,12 +131,17 @@ let view = {
       if(elementClicked.className === "deleteButton"){
         handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
       }
+      // check if elementClicked was a checkBox
+      else if (elementClicked.className === "checkBox") {
+        handlers.toggleCompleted(parseInt(elementClicked.parentNode.id));
+      }
 
     });
   }
 }
 
 view.setUpEventListeners();
+
 // add this to the view object
 let addToDoTextInput = document.getElementById("addToDoTextInput")
     addToDoTextInput.addEventListener("keyup", function(event) {
