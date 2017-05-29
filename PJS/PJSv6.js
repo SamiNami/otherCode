@@ -127,3 +127,11 @@ let view = {
 }
 
 view.setUpEventListeners();
+// add this to the view object
+let addToDoTextInput = document.getElementById("addToDoTextInput")
+    addToDoTextInput.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        document.getElementById("addEventToListButton").click();
+    }
+});
