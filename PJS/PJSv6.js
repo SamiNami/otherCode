@@ -54,13 +54,8 @@ let handlers = {
     addTodoTextInput.value = "";
     view.displayTodos();
   },
-  changeTodo: function(){
-    let changeTodoPositionInput = document.getElementById("changeTodoPositionInput")
-    let changeTodoPositionTextInput = document.getElementById("changeTodoPositionTextInput")
-    todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoPositionTextInput.value);
-
-    changeTodoPositionInput.value = "";
-    changeTodoPositionTextInput.value = "";
+  changeTodo: function(position,text){
+    todoList.changeTodo(position,text);    
     view.displayTodos();
   },
   deleteTodo: function(position){
@@ -99,14 +94,23 @@ let view = {
        checkBox.checked = false;
       }
       todoLi.id = position;
-      // there is a textcontent property on these li elements, that you can change
-      todoLi.textContent = todoTextWithCompletion;
+
+      let label = this.createLabel();
+      label.innerText = todoTextWithCompletion;
+
+      todoLi.appendChild(label);
       todoLi.insertAdjacentElement("afterbegin", checkBox);
       todoLi.appendChild(this.createDeleteButton());
       todosUl.appendChild(todoLi);
 
     }, this);
 
+  },
+  createLabel: function(){
+    let label = document.createElement("LABEL");
+    label.contentEditable = "true";
+    label.className = "label";
+    return label;
   },
   createCheckBox: function(){
     let checkBox = document.createElement("INPUT");
@@ -137,7 +141,26 @@ let view = {
       }
 
     });
+
+
+    todoUl.addEventListener("keyup", function(event) {
+
+    let elementUsed = event.target;
+
+    event.preventDefault();
+
+
+      if (event.keyCode == 13) {
+          // get the current text
+          text = elementUsed.innerText;
+          // remove linebrakes
+          text = text.replace(/(\r\n|\n|\r)/gm,"");
+          handlers.changeTodo(parseInt(elementUsed.parentNode.id),text);
+      }
+    });
+
   }
+
 }
 
 view.setUpEventListeners();

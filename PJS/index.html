@@ -3,19 +3,18 @@
 
   <head>
 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- import jquery
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- import bootstrap  Bootstrap meeses with contentEditable!
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
 
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- import jquery -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-      <!-- import bootstrap -->
-      <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-      <!-- import font awsome -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      -->
 
-      <!-- Import Roboto font -->
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
       <link rel="stylesheet" href="style.css">
 
   </head>
@@ -29,14 +28,10 @@
 
     <div>
       <button type="button" onclick="handlers.addTodo()"  id="addEventToListButton" >Add</button>
-      <input id="addToDoTextInput" type="text" placeholder="What needs to be done?">
+      <input id="addToDoTextInput" type="text" placeholder="What needs to be done?" autofocus>
     </div>
 
-    <div>
-      <button type="button" onclick="handlers.changeTodo()">Change Todo</button>
-      <input id="changeTodoPositionInput" type="number">
-      <input id="changeTodoPositionTextInput" type="text">
-    </div>
+
 
 
     <ul>
