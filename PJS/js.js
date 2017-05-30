@@ -80,6 +80,7 @@ let handlers = {
     todoList.todos = JSON.parse(localStorage.getItem("savedData"));
     view.displayTodos();
   }
+
 };
 
 // responssible for what the user can see
@@ -180,6 +181,8 @@ let view = {
             document.getElementById("addEventToListButton").click();
         }
     });
+
+
   }
 }
 
