@@ -55,7 +55,7 @@ let handlers = {
     view.displayTodos();
   },
   changeTodo: function(position,text){
-    todoList.changeTodo(position,text);    
+    todoList.changeTodo(position,text);
     view.displayTodos();
   },
   deleteTodo: function(position){
@@ -125,6 +125,10 @@ let view = {
     return deleteButton;
   },
   setUpEventListeners: function(){
+    view.setUpClickListeners();
+    view.setUpKeyListenders();
+  },
+  setUpClickListeners: function (){
     let todoUl = document.querySelector("ul");
 
     todoUl.addEventListener("click", function(event) {
@@ -139,37 +143,36 @@ let view = {
       else if (elementClicked.className === "checkBox") {
         handlers.toggleCompleted(parseInt(elementClicked.parentNode.id));
       }
-
     });
-
+  },
+  setUpKeyListenders: function(){
+    // get the unordered list
+    let todoUl = document.querySelector("ul");
 
     todoUl.addEventListener("keyup", function(event) {
 
     let elementUsed = event.target;
-
     event.preventDefault();
-
 
       if (event.keyCode == 13) {
           // get the current text
           text = elementUsed.innerText;
-          // remove linebrakes
+          // remove newLines
           text = text.replace(/(\r\n|\n|\r)/gm,"");
           handlers.changeTodo(parseInt(elementUsed.parentNode.id),text);
       }
     });
+    // This allows the user to use the enter Key when adding items to the list
+    let addToDoTextInput = document.getElementById("addToDoTextInput")
+        addToDoTextInput.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("addEventToListButton").click();
+        }
+    });
+
 
   }
-
 }
 
 view.setUpEventListeners();
-
-// add this to the view object
-let addToDoTextInput = document.getElementById("addToDoTextInput")
-    addToDoTextInput.addEventListener("keyup", function(event) {
-    event.preventDefault();
-    if (event.keyCode == 13) {
-        document.getElementById("addEventToListButton").click();
-    }
-});
