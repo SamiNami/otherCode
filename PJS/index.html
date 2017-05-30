@@ -19,22 +19,27 @@
 
   </head>
 
-  <div class="container well text-center" >
+  <section class="todoapp" >
+
+
     <h1>Todo List</h1>
 
-    <div>
-      <button type="button" onclick="handlers.toggleAll()">Toggle All</button>
-    </div>
-
-    <div>
-      <button type="button" onclick="handlers.addTodo()"  id="addEventToListButton" >Add</button>
-      <input id="addToDoTextInput" type="text" placeholder="What needs to be done?" autofocus>
+    <div class="center">
+      <button type="button" onclick="handlers.addTodo()"  id="addEventToListButton" class="hidden" >Add</button>
+      <input class ="inputbox" id="addToDoTextInput" type="text" placeholder="What needs to be done?" autofocus>
     </div>
 
 
+    <div class="todo-list">
+      <button type="button" class="toggleButton" onclick="handlers.toggleAll()">▼ Toggle</button>
+    </div>
 
 
-    <ul>
+
+
+
+
+    <ul class ="todo-list">
 
     </ul>
 
