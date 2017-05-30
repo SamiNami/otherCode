@@ -53,23 +53,34 @@ let handlers = {
     // clear the text
     addTodoTextInput.value = "";
     view.displayTodos();
+    //save to localStorage
+    localStorage.setItem("savedData", JSON.stringify(todoList.todos));
   },
   changeTodo: function(position,text){
     todoList.changeTodo(position,text);
     view.displayTodos();
+    localStorage.setItem("savedData", JSON.stringify(todoList.todos));
   },
   deleteTodo: function(position){
     todoList.deleteTodo(position);
     view.displayTodos();
+    localStorage.setItem("savedData", JSON.stringify(todoList.todos));
   },
   toggleCompleted: function(position){
     todoList.toggleCompleted(position);
     view.displayTodos();
+    localStorage.setItem("savedData", JSON.stringify(todoList.todos));
   },
   toggleAll:function(){
     todoList.toggleAll();
     view.displayTodos();
+    localStorage.setItem("savedData", JSON.stringify(todoList.todos));
+  },
+  loadLocalStorage: function(){
+    todoList.todos = JSON.parse(localStorage.getItem("savedData"));
+    view.displayTodos();
   }
+
 };
 
 // responssible for what the user can see
@@ -176,3 +187,4 @@ let view = {
 }
 
 view.setUpEventListeners();
+handlers.loadLocalStorage();
