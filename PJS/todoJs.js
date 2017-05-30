@@ -6,6 +6,7 @@ let todoList = {
       todoText: todoText,
       completed: false
     });
+
   },
   changeTodo(position, todoText){
     this.todos[position].todoText = todoText;
@@ -76,8 +77,14 @@ let handlers = {
     localStorage.setItem("savedData", JSON.stringify(todoList.todos));
   },
   loadLocalStorage: function(){
-    todoList.todos = JSON.parse(localStorage.getItem("savedData"));
-    view.displayTodos();
+      let saveData = JSON.parse(localStorage.getItem("savedData"));
+
+      if(saveData === null){
+        return;
+      }
+
+      todoList.todos = saveData;
+      view.displayTodos();
   }
 };
 
