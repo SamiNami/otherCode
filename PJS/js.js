@@ -41,7 +41,6 @@ let todoList = {
       }
     });
   }
-
 };
 
 
@@ -80,7 +79,6 @@ let handlers = {
     todoList.todos = JSON.parse(localStorage.getItem("savedData"));
     view.displayTodos();
   }
-
 };
 
 // responssible for what the user can see
