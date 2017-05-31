@@ -1,6 +1,6 @@
 let born = [1942,1988,2010,1977];
-
 let arr = [];
+
 for(let i = 0;i < born.length; i++){
   arr.push(born[i]);
 }
