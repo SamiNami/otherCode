@@ -1,6 +1,9 @@
 // quizgame in console
 
 (function(){
+
+
+
   function Question(question,answers,correct) {
     this.question = question;
     this.answers = answers;
@@ -15,14 +18,26 @@
     }
   }
 
-  Question.prototype.checkAnswer = function(ans){
-    if(ans === this.correct){
+  Question.prototype.checkAnswer = function(ans,callback){
+    let sc;
+
+    if(ans == this.correct){
       console.log("Correct!");
+      sc = callback(true);
     }
     else{
       console.log("Wrong!");
+      sc = callback(false);
     }
+
+    this.displayScore(sc);
   }
+
+  Question.prototype.displayScore = function(score){
+    console.log("Your current score is: " + score);
+    console.log("--------------------------------");
+  }
+
 
   let q1 = new Question("How old is Donald Trump?",["Under 50 years old","Over 50 y/o"],1);
   let q2 = new Question("Is China number 1?",["Yes","No"],0);
@@ -30,13 +45,34 @@
 
   let arr = [q1,q2,q3];
 
+  function score(){
+    let sc = 0;
+    return function(correct){
+      if(correct){
+        sc++;
+      }
+      return sc;
+    }
+  }
 
-  let n = Math.floor(Math.random() * arr.length);
+  let keepScore = score();
 
-  arr[n].displayQuestion();
 
-  let answer = parseInt(prompt("Please select the correct answer!"));
+  function makeQuestion(){
 
-  arr[n].checkAnswer(answer);
+    let n = Math.floor(Math.random() * arr.length);
+    arr[n].displayQuestion();
+
+    let answer = prompt("Please select the correct answer!");
+
+    if(answer === "exit"){
+      return;
+    }
+
+    arr[n].checkAnswer(answer, keepScore);
+    makeQuestion();
+  }
+
+  makeQuestion();
 
 })();
