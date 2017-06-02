@@ -73,12 +73,10 @@ document.querySelector(".btn-hold").addEventListener("click", function(){
 
     //undefined,0,null or "" are COERCED to false
     //Anythimg else is COERCEd to true
-    if(input){
-      winningScore = input;
-    }
-    else{
-      winningScore = 100;
-    }
+
+    input ? winningScore = input : winningScore = 100;
+
+    
 
     // check if player won the game
     if(scores[activePlayer] >= winningScore){
