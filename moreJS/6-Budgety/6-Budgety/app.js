@@ -14,8 +14,6 @@ let budgetController = (function(){
     this.value = value;
   };
 
-
-
   let data = {
     allItems:{
         exp:[],
@@ -27,13 +25,41 @@ let budgetController = (function(){
     }
   };
 
+  return{
+    addItem: function(type,des,val){
+      let newItem, ID;
+
+      //create new ID
+      if(data.allItems[type].length >0){
+        ID = data.allItems[type][data.allItems[type].length -1].id + 1;
+      }
+      else{
+        ID = 0;
+      }
+
+
+      //create new item depending on type
+      if(type === "exp"){
+        newItem = new Expense(ID,des,val);
+      }
+      else if(type === "inc"){
+          newItem = new Income(ID,des,val);
+      }
+
+      //push it into the new datastructure
+      data.allItems[type].push(newItem);
+      //return the new element
+      return newItem;
+
+    },
+    testing: function(){
+      console.log(data);
+    }
+  };
+
 })();
 
-let Expense = function(id, description, value){
-  this.is = id;
-  this.description = description;
-  this.value = value;
-}
+
 
 let UIController = (function(){
 
@@ -82,15 +108,15 @@ let controller = (function(budgetCtrl,UICtrl){
   };
 
 
-
-
   let ctrlAddItem = function(){
 
+    let input,newItem;
+
     // 1. Get the field input data
-    let input = UICtrl.getInput();
-    console.log(input);
+    input = UICtrl.getInput();
 
     //2. Add the item to the budget Controller
+    newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
     //3. Add the item the the UI
 
@@ -98,7 +124,6 @@ let controller = (function(budgetCtrl,UICtrl){
 
     //5. Display the budget on the UI
 
-    console.log("tset");
   };
 
   return{
