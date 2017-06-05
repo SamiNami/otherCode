@@ -3,13 +3,13 @@
 let budgetController = (function(){
 
   let Expense = function(id, description, value){
-    this.is = id;
+    this.id = id;
     this.description = description;
     this.value = value;
   };
 
   let Income = function(id, description, value){
-    this.is = id;
+    this.id = id;
     this.description = description;
     this.value = value;
   };
@@ -40,6 +40,8 @@ let budgetController = (function(){
     addItem: function(type,des,val){
       let newItem, ID;
 
+
+
       //create new ID
       if(data.allItems[type].length > 0){
         ID = data.allItems[type][data.allItems[type].length -1].id + 1;
@@ -47,6 +49,9 @@ let budgetController = (function(){
       else{
         ID = 0;
       }
+
+
+
 
       //create new item depending on type
       if(type === "exp"){
@@ -56,6 +61,7 @@ let budgetController = (function(){
           newItem = new Income(ID,des,val);
       }
 
+      
       //push it into the new datastructure
       data.allItems[type].push(newItem);
       //return the new element
@@ -113,7 +119,8 @@ let UIController = (function(){
     budgetLabel: ".budget__value",
     incomeLabel: ".budget__income--value",
     expensesLabel: ".budget__expenses--value",
-    percentageLabel: ".budget__expenses--percentage"
+    percentageLabel: ".budget__expenses--percentage",
+    container: ".container"
   };
 
   return {
@@ -202,6 +209,9 @@ let controller = (function(budgetCtrl,UICtrl){
         ctrlAddItem();
       }
     });
+
+    document.querySelector(DOM.container).addEventListener("click", ctrlDeleteItem);
+
   };
 
   let updateBudget = function(){
@@ -233,7 +243,11 @@ let controller = (function(budgetCtrl,UICtrl){
       //5. Calculate and Update budget
       updateBudget();
     }
+  };
 
+  let ctrlDeleteItem = function (event){
+
+    console.log(event.target.parentNode.parentNode.parentNode.parentNode);
 
   };
 
