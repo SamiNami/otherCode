@@ -30,7 +30,7 @@ let budgetController = (function(){
       let newItem, ID;
 
       //create new ID
-      if(data.allItems[type].length >0){
+      if(data.allItems[type].length > 0){
         ID = data.allItems[type][data.allItems[type].length -1].id + 1;
       }
       else{
@@ -101,9 +101,22 @@ let UIController = (function(){
 
       // insert the HTML into the DOM
       document.querySelector(element).insertAdjacentHTML("beforeend", newHtml);
-
     },
+    clearFields: function(){
+      let fields, fieldsArr;
 
+      // querySelectorAll returns a list and not an array
+      fields = document.querySelectorAll(DOMstrings.inputDescription + ", " + DOMstrings.inputValue);
+
+      //converts the list to an array
+      fieldsArr = Array.prototype.slice.call(fields);
+
+      fieldsArr.forEach(function(current,index,array){
+        current.value = "";
+      });
+      // set focus back to the input description
+      fieldsArr[0].focus();
+    },
     getDOMstrings: function(){
       return DOMstrings;
     }
@@ -144,9 +157,12 @@ let controller = (function(budgetCtrl,UICtrl){
 
     //3. Add the item the the UI
     UICtrl.addListItem(newItem, input.type);
-    //4. Calculate the budget
 
-    //5. Display the budget on the UI
+    //4. Clear the fields
+    UICtrl.clearFields();
+    //5. Calculate the budget
+
+    //6. Display the budget on the UI
 
   };
 
