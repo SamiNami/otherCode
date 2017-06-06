@@ -331,7 +331,6 @@ let controller = (function(budgetCtrl,UICtrl){
     document.querySelector(DOM.inputType).addEventListener("change", UICtrl.changedType);
 
   };
-
   let updateBudget = function(){
     //1. Calculate the budget
     budgetCtrl.calculateBudget();
