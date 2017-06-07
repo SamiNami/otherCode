@@ -435,3 +435,46 @@ console.log(john);
 var emily = new SmithPerson("Emily", 1983, "Diaz", "Spansish");
 console.log(emily);
 */
+
+
+// Maps
+/*
+const question = new Map();
+question.set("question", "What is the offical name of the latest major JS version?");
+question.set(1, "ES5");
+question.set(2, "ES6");
+question.set(3, "ES2015");
+question.set(4, "ES7");
+question.set("correct", 3);
+question.set(true, "Corrct answer!");
+question.set(false, "Wrong, please try again");
+
+/*
+console.log(question.get("question"));
+console.log(question.size);
+
+if(question.has(4)){
+  //question.delete(4);
+  console.log(question.get(1));
+
+}
+*/
+//question.clear();
+
+//question.forEach((value,key) => console.log(`This is key: ${key} and it's set to: ${value}`));
+
+// using entrieds method is going to return all the key and value pairs
+//then we can use Destrcuturing and store the key and value into 2 sepparate variables
+/*
+for(let [key,value] of question.entries()){
+  if(typeof(key) === "number"){
+    console.log(`Answer ${key} : ${value}`)
+  }
+}
+
+const ans = parseInt(prompt("Write the correct answer"));
+
+// if the answer given is the same as stored in the hashmap.get correct, return the
+//corresponding stiring
+console.log(question.get(ans === question.get("correct")));
+*/
