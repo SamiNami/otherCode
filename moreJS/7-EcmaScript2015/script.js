@@ -263,3 +263,58 @@ function calcAgeRetirement(year){
 const[age1,retirement] = calcAgeRetirement(1990);
 console.log(age1,retirement);
 */
+
+
+// Arrays
+/*
+const boxes = document.querySelectorAll(".box");
+
+//ES5
+
+var boxesArr5 = Array.prototype.slice.call(boxes);
+// now we have an Array
+boxesArr5.forEach(function(cur){
+  cur.style.backgroundColor = "dodgerblue";
+});
+
+
+//ES6
+// this transforms nodelist into array!
+const boxesArr6 = Array.from(boxes);
+Array.from(boxes).forEach(cur => cur.style.backgroundColor = "dodgerblue");
+*/
+//ES5
+/*
+for(var i = 0;i < boxesArr5.length;i++){
+
+  if(boxesArr5[i].className === "box blue"){
+    continue;
+  }
+
+  boxesArr5[i].textContent= "I changed to blue";
+
+}
+*/
+/*
+//ES6
+// for off loop
+  for(const cur of boxesArr6){
+    if(cur.className.includes('blue')){
+      continue;
+    }
+    cur.textContent = "I changed to blue!";
+  }
+*/
+// ES5
+var ages = [12,17,8,21,14,11];
+
+var full = ages.map(function(el){
+  return el >= 18;
+})
+console.log(full.indexOf(true));
+console.log(ages[full.indexOf(true)]);
+
+//ES6 find index and find
+
+console.log(ages.findIndex(cur => cur >= 18));
+console.log(ages.find(cur => cur >= 18));
