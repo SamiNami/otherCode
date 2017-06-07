@@ -225,3 +225,41 @@ Person.prototype.myFriends6 = function(friends){
 let friends = ["bob","jane","mark"];
 new Person("Mike").myFriends6(friends);
 */
+
+// Destrcuturing
+
+//ES5
+/*
+var john = ["John", 26];
+//var name = john[0];
+//var age = john[1];
+
+//ES6
+
+const [name,age] = ["John", 26];
+console.log(name);
+console.log(age);
+
+const obj = {
+  firstName: "John",
+  lastName: "Smith"
+};
+
+
+
+const {firstName, lastName} = obj;
+console.log(firstName, lastName);
+
+// if you want different names for the variables
+const {firstName: a, lastName: b} = obj;
+console.log(a,b);
+
+//returning many values with Destrcuturing
+function calcAgeRetirement(year){
+  const age = new Date().getFullYear() - year;
+  return [age, 65 - age];
+}
+
+const[age1,retirement] = calcAgeRetirement(1990);
+console.log(age1,retirement);
+*/
