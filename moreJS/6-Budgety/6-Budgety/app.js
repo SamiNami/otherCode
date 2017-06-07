@@ -132,6 +132,18 @@ let budgetController = (function(){
         percentage: data.percentage
       }
     },
+    saveToLocalStorage: function(){
+      localStorage.setItem("savedData", JSON.stringify(data));
+    },
+    loadFromLocalStorage: function(){
+      let saveData = JSON.parse(localStorage.getItem("savedData"));
+
+      if(saveData === null){
+        return null;
+      }
+
+      return saveData;
+    },
 
     testing: function(){
       console.log(data);
@@ -372,6 +384,8 @@ let controller = (function(budgetCtrl,UICtrl){
 
       //6. Calculate and update percentages
       updatePercentages();
+      //7. Save changes to localstorage
+      budgetController.saveToLocalStorage();
     }
   };
 
@@ -394,20 +408,76 @@ let controller = (function(budgetCtrl,UICtrl){
       updateBudget();
       // 4. Calculate and update percentages
       updatePercentages();
+      //5. Save changes to localstorage
+      budgetController.saveToLocalStorage();
     }
 
   };
 
+  let addSavedItems = function(){
+    //get the save data
+    let saveData = budgetController.loadFromLocalStorage();
+
+    // return false if there is no savedata
+    if(saveData === null){
+      return false;
+    }
+
+    //if both exp and inc array are empty, return false
+    if(saveData.allItems.exp.length <= 0 && saveData.allItems.inc.length <= 0){
+      return false;
+    }
+
+    // add the expenses, if there are any
+    if(saveData.allItems.exp.length > 0){
+      saveData.allItems.exp.forEach(function(obj){
+        addTheItemsHack("exp",obj.description,obj.value);
+      });
+    }
+    // add incomes if there are any
+    if(saveData.allItems.inc.length > 0){
+      saveData.allItems.inc.forEach(function(obj){
+        addTheItemsHack("inc",obj.description,obj.value);
+      });
+    }
+
+    // ugly hack that adds the items (but it works!)
+    function addTheItemsHack(type,description, value){
+      //2. Add the item to the budget Controller
+      newItem = budgetCtrl.addItem(type, description, value);
+
+      //3. Add the item the the UI
+      UICtrl.addListItem(newItem, type);
+
+      //4. Clear the fields
+      UICtrl.clearFields();
+
+      //5. Calculate and Update budget
+      updateBudget();
+
+      //6. Calculate and update percentages
+      updatePercentages();
+    }
+    return true;
+  }
+
   return{
     init: function(){
       console.log("Application started");
+
       UICtrl.displayMonth();
-      UICtrl.displayBudget({
-        budget: 0,
-        totalInc: 0,
-        totalExp: 0,
-        percentage: -1
-      });
+
+      // if there is no save data, display empty budget
+      // note: addSavedItems function adds the items if there are any
+      if(!addSavedItems()){
+        UICtrl.displayBudget({
+          budget: 0,
+          totalInc: 0,
+          totalExp: 0,
+          percentage: -1
+        });
+      }
+
       setupEventListeners();
     }
   }
