@@ -478,3 +478,67 @@ const ans = parseInt(prompt("Write the correct answer"));
 //corresponding stiring
 console.log(question.get(ans === question.get("correct")));
 */
+
+// Classes
+
+//ES5
+/*
+var Person5 = function(name,yearOfBirth,job){
+  this.name = name;
+  this.yearOfBirth = yearOfBirth;
+  this.job = job;
+}
+
+Person5.prototype.calculateAge = function(){
+  var age = new Date().getFullYear - this.yearOfBirth;
+  console.log(age);
+}
+
+var john5 = new Person5("John", 1990,"teacher");
+
+
+//ES6
+
+class Person6{
+  constructor (name, yearOfBirth, job){
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.job = job;
+  }
+
+  calculateAge(){
+    var age = new Date().getFullYear - this.yearOfBirth;
+    console.log(age);
+  }
+  // static methods are not inheritet, so objects created by the constructor can't use em
+  static greeting(){
+    console.log("Hello!")
+  }
+
+}
+
+const john6 = new Person6("John", 1990, "teacher");
+
+console.log(john5);
+console.log(john6);
+*/
+
+// Classes and subclasses
+
+
+var Person5 = function(name,yearOfBirth,job){
+  this.name = name;
+  this.yearOfBirth = yearOfBirth;
+  this.job = job;
+}
+
+Person5.prototype.calculateAge = function(){
+  var age = new Date().getFullYear - this.yearOfBirth;
+  console.log(age);
+}
+
+var Athlete5 = function(name,yearOfBirth,job,olympicGames,medals){
+  Person5.call(this, name,year,job);
+  this.olympicGames = olympicGames;
+  this.medals = medals;
+}
