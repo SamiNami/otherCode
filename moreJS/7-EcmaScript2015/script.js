@@ -158,7 +158,7 @@ var box5 = {
 box5.clickMe();
 */
 //ES6
-
+/*
 const box6 = {
   color: "green",
   position: 1,
@@ -170,6 +170,7 @@ const box6 = {
     });
   }
 }
+*/
 //box6.clickMe();
 
 // be careful with arrow fucntions!
